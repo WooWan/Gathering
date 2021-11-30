@@ -23,15 +23,17 @@ class LoginActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     var googleSignInClient: GoogleSignInClient?= null
     val RC_SIGN_IN :Int = 201
+
     val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initOAuth2info()
+        initButton()
+    }
 
+    private fun initOAuth2info() {
         mAuth = FirebaseAuth.getInstance()
-
-        val currentUser = mAuth!!.currentUser
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -39,23 +41,28 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
+
+    fun initButton() {
+        with(binding) {
+            googleSigninBtn.setOnClickListener{
+                signIn()
+            }
+        }
+    }
     private fun signIn() {
         val signInIntent = googleSignInClient!!.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
             }
         }
@@ -79,9 +86,8 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
-//            Toast.makeText(this, getString(com.google.firebase.auth.R.string.signin_complete), Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
-//            finish()
+            finish()
         }
     }
 
