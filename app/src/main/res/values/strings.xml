@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GatheringFront</string>
+    <string name="google_login_button">Google</string>
+</resources>
