@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "84667826127-s4uunu43d6vpsb0e2slrijvg7hduertl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gatheringfront",
+            "certificate_hash": "8e2c95666f8419168c9364d522b4306d731b28f3"
+          }
+        },
+        {
           "client_id": "84667826127-2eq6qlfqd4q6nlsf5qdp1dm1qauc1v3s.apps.googleusercontent.com",
           "client_type": 3
         }
