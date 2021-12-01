@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.gatheringfront.MainActivity
 import com.example.gatheringfront.R
 import com.example.gatheringfront.databinding.ActivityLoginBinding
+import com.example.gatheringfront.util.replace
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     private var mAuth: FirebaseAuth? = null
     var googleSignInClient: GoogleSignInClient?= null
-    val RC_SIGN_IN :Int = 201
+    val RC_SIGN_IN :Int = 9001
 
     val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
+//            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
@@ -80,12 +83,14 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    moveMainPage(null)
+//                    moveMainPage(null)
                 }
             }
     }
     private fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
+            Log.d("user", "move main page")
+//            replace(R.id.)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
