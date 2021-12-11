@@ -4,13 +4,11 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gatheringfront.MainActivity
 import com.example.gatheringfront.R
 import com.example.gatheringfront.databinding.ActivityLoginBinding
-import com.example.gatheringfront.util.replace
-import com.google.android.gms.auth.api.Auth
+import com.example.gatheringfront.ui.home.HomeFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -25,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     var googleSignInClient: GoogleSignInClient?= null
     val RC_SIGN_IN :Int = 9001
-
     val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    fun initButton() {
+    private fun initButton() {
         with(binding) {
             googleSigninBtn.setOnClickListener{
                 signIn()
@@ -83,14 +80,11 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-//                    moveMainPage(null)
                 }
             }
     }
     private fun moveMainPage(user: FirebaseUser?) {
         if (user != null) {
-            Log.d("user", "move main page")
-//            replace(R.id.)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -45,6 +44,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -66,6 +66,8 @@ dependencies {
     // Koin Test features
     testImplementation "io.insert-koin:koin-test:$koin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC'
+    // Kotlin
+    implementation("androidx.fragment:fragment-ktx:1.4.0")
 
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
