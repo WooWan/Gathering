@@ -6,6 +6,7 @@ data class ContentDto(
     var skillList: List<String> = arrayListOf(),
     var uId: String? = null,
     var userId: String? = null,
+    var status: String? = null,
     var timeStamp: Long? = null){
 
     data class Comment(
